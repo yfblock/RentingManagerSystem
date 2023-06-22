@@ -36,6 +36,12 @@
               用户管理
             </p>
         </my:AdminMenuItem>
+        <my:AdminMenuItem url="/admin-house">
+          <i class="nav-icon fas fa-user-alt"></i>
+          <p>
+            资产管理
+          </p>
+        </my:AdminMenuItem>
         <li class="nav-item">
           <a href="pages/widgets.html" class="nav-link">
             <i class="nav-icon fas fa-th"></i>

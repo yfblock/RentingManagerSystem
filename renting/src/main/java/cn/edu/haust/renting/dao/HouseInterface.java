@@ -1,0 +1,20 @@
+package cn.edu.haust.renting.dao;
+
+import cn.edu.haust.renting.entity.House;
+import cn.edu.haust.renting.entity.User;
+import io.github.yfblock.yfSql.Annotation.*;
+
+import java.sql.SQLException;
+import java.util.List;
+
+@DataRunner
+public interface HouseInterface {
+    @Select("select * from house")
+    public List<House> getHouses() throws SQLException;
+
+    @Delete("delete from house where id = {0}")
+    public Integer deleteHouseById(Integer id) throws SQLException;
+
+    @Insert("insert into house (title, position, details, cover, price, area) VALUES('{0}', '{1}', '{2}', '{3}', {4}, {5})")
+    public Integer addHouse(String title, String position, String details, String cover, Double price, Double area) throws SQLException;
+}

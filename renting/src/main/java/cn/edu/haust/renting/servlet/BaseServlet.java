@@ -1,5 +1,6 @@
 package cn.edu.haust.renting.servlet;
 
+import cn.edu.haust.renting.dao.HouseInterface;
 import cn.edu.haust.renting.dao.UserInterface;
 import cn.edu.haust.renting.result.Result;
 import com.alibaba.fastjson.JSON;
@@ -17,11 +18,13 @@ import java.sql.SQLException;
 
 public class BaseServlet extends HttpServlet {
     protected UserInterface userInterface;
+    protected HouseInterface houseInterface;
     protected DataSource dataSource;
     @Override
     public void init() {
         dataSource = new BasicDataSource("com.mysql.cj.jdbc.Driver", "jdbc:mysql://127.0.0.1:3306/rent?useUnicode=true&characterEncoding=utf8&useSSL=false", "root", "123456");
         userInterface = DataRunnerUtil.getWrapper(UserInterface.class, dataSource);
+        houseInterface = DataRunnerUtil.getWrapper(HouseInterface.class, dataSource);
     }
 
     @Override

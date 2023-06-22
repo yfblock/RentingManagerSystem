@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Result<T> {
     private boolean status;
     private String msg;
-    private T obj;
+    private T data;
 }
