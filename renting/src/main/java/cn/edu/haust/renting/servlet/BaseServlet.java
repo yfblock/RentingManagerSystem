@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,6 +31,19 @@ public class BaseServlet extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        String path = req.getRequestURI();
+        System.out.println(path);
+        if(path.lastIndexOf("/login") == -1 && !path.equals("/") && session.getAttribute("user") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+        session.setAttribute("user", session.getAttribute("user"));
+        super.service(req, resp);
     }
 
     protected void forward(String path, HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {

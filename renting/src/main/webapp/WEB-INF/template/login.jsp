@@ -61,9 +61,7 @@
     $('form').ajaxForm(function (data) {
         if(data['status']) {
             alert("登录成功!");
-            setTimeout(() => {
-                location.href = "/index";
-            }, 2000);
+            location.href = "/";
         } else {
             alert(data['msg']);
         }

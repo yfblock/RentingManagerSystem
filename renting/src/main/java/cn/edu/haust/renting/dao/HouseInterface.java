@@ -17,4 +17,7 @@ public interface HouseInterface {
 
     @Insert("insert into house (title, position, details, cover, price, area) VALUES('{0}', '{1}', '{2}', '{3}', {4}, {5})")
     public Integer addHouse(String title, String position, String details, String cover, Double price, Double area) throws SQLException;
+
+    @Find("select * from house where id = {0}")
+    public House getHouseById(Integer id) throws SQLException;
 }

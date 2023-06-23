@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -38,6 +39,8 @@ public class LoginServlet extends BaseServlet {
         if(!UserUtil.encode(password).equals(user.getPassword())) {
             return new Result<>(false, "密码错误", null);
         }
+        HttpSession session = req.getSession();
+        session.setAttribute("user", user);
         // 登录成功
         return new Result<>(true, "登录成功", null);
     }

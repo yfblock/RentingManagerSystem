@@ -24,12 +24,13 @@ public class AdminUserServlet extends BaseServlet {
         this.forward("admin_user.jsp", req, resp);
     }
 
-    protected Result<?> postAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    protected Result<?> postAdd(HttpServletRequest req, HttpServletResponse resp) throws SQLException, NumberFormatException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String phone = req.getParameter("phone");
+        Integer role = Integer.valueOf(req.getParameter("role"));
 
-        if(username == null || password == null || username.length() < 5 || password.length() < 5) {
+        if(username == null || password == null || username.length() < 5 || password.length() < 5 || role == null) {
             return new Result<>(false, "账号或密码格式不正确", null);
         }
 
@@ -42,7 +43,7 @@ public class AdminUserServlet extends BaseServlet {
             phone = "";
         }
 
-        userInterface.addUserWithPhone(username, UserUtil.encode(password), phone);
+        userInterface.addUserWithPhone(username, UserUtil.encode(password), phone, role);
         return new Result<>(true, "添加成功", null);
     }
 
@@ -60,8 +61,12 @@ public class AdminUserServlet extends BaseServlet {
     protected Result<?> postUpdate(HttpServletRequest req, HttpServletResponse resp) throws SQLException, NumberFormatException {
         Integer id = Integer.valueOf(req.getParameter("id"));
         User user = userInterface.getUserById(id);
+        Integer role = Integer.valueOf(req.getParameter("role"));
         if(user == null) {
             return new Result<>(false, "用户不存在", null);
+        }
+        if(role == null) {
+            return new Result<>(false, "表单参数错误", null);
         }
         String password = req.getParameter("password");
         if("".equals(password) || password == null) {
@@ -75,7 +80,7 @@ public class AdminUserServlet extends BaseServlet {
         if(phone == null) {
             phone = "";
         }
-        userInterface.updateUserInfoById(id, password, phone);
+        userInterface.updateUserInfoById(id, password, phone, role);
         return new Result<>(true, "修改成功", null);
     }
 
