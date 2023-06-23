@@ -221,7 +221,7 @@
 
     var options = {
       type: 'post',
-      dataType: 'json',
+      // dataType: 'json',
       success: function (data) {
         if (data.status) {
           alert(data.msg);
@@ -240,6 +240,7 @@
         win.reloadTable();
       }
     };
+    console.log("Hello World!")
     $('#add-form').ajaxSubmit(options);
 
 

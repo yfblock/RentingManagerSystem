@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class AdminHouseServlet extends BaseServlet {
         return new Result<>(true, "删除成功", null);
     }
 
-    protected Result<?> postAdd(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    protected Result<?> postAdd(HttpServletRequest req, HttpServletResponse resp) throws SQLException, UnsupportedEncodingException {
         String title = null;
         String position = null;
         String details = null;
@@ -43,12 +44,13 @@ public class AdminHouseServlet extends BaseServlet {
         Double price = null;
         Double area = null;
 
+//        req.setCharacterEncoding("utf-8");
         // 配置FileItemFactory工厂
         FileItemFactory factory = new DiskFileItemFactory();
         // 创建用于解析数据的工具类ServletFileUpload类
         ServletFileUpload upload = new ServletFileUpload(factory);
         // 防止上传文件名称乱码
-        upload.setHeaderEncoding("UTF-8");
+        upload.setHeaderEncoding("gbk");
         // 构造临时路径来存储上传的文件
         String uploadPath = req.getServletContext().getRealPath("/upload");
         // 如果目录不存在则创建
@@ -76,15 +78,15 @@ public class AdminHouseServlet extends BaseServlet {
                         }
                         cover = "upload/" + fileName;
                     } else if("title".equals(item.getFieldName())) {
-                        title = item.getString();
+                        title = item.getString("UTF-8");
                     } else if("position".equals(item.getFieldName())) {
-                        position = item.getString();
+                        position = item.getString("UTF-8");
                     } else if("details".equals(item.getFieldName())) {
-                        details = item.getString();
+                        details = item.getString("UTF-8");
                     } else if("price".equals(item.getFieldName())) {
-                        price = Double.valueOf(item.getString());
+                        price = Double.valueOf(item.getString("UTF-8"));
                     } else if("area".equals(item.getFieldName())) {
-                        area = Double.valueOf(item.getString());
+                        area = Double.valueOf(item.getString("UTF-8"));
                     }
                 }
             }
@@ -100,9 +102,9 @@ public class AdminHouseServlet extends BaseServlet {
         System.out.println(area);
 
         if(title == null || position == null || details == null || price == null || area == null) {
-            return new Result<>(false, "参数格式错误", null);
+            return new Result<>(false, "参数不能为空", null);
         }
-        houseInterface.addHouse(title, position, details, cover, price, area);
+        houseInterface.addHouse(title, position, details, cover, price.toString(), area.toString());
         return new Result<>(true, "上传成功", null);
     }
 
