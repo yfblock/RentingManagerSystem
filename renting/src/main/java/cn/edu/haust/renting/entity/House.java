@@ -13,6 +13,7 @@ public class House {
     private String cover;
     private Double price;
     private Double area;
+    private Integer ordered;
     private LocalDateTime updateTime;
     private LocalDateTime createTime;
 }

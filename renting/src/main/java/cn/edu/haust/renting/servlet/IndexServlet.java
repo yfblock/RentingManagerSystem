@@ -12,8 +12,21 @@ public class IndexServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String title = req.getParameter("title");
+        String type = req.getParameter("type");
+        req.setAttribute("type", 0);
         try {
-            req.setAttribute("houses", houseInterface.getHouses());
+            if(title != null) {
+                req.setAttribute("houses", houseInterface.findHouseByName(title));
+            } else if(type != null && type.equals("1")) {
+                req.setAttribute("type", 1);
+                req.setAttribute("houses", houseInterface.findHouseByOrder(0));
+            } else if(type != null && type.equals("2")) {
+                req.setAttribute("type", 2);
+                req.setAttribute("houses", houseInterface.findHouseByOrder(1));
+            } else {
+                req.setAttribute("houses", houseInterface.getHouses());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

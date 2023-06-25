@@ -8,10 +8,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarsDefault">
     <ul class="navbar-nav mr-auto align-items-center">
-      <form class="bd-search hidden-sm-down">
-        <input type="text" class="form-control bg-graylight border-0 font-weight-bold" id="search-input" placeholder="请输入要搜索的关键词" autocomplete="off">
-        <div class="dropdown-menu bd-search-results" id="search-results">
-        </div>
+      <form class="bd-search hidden-sm-down" action="/">
+        <input type="text" name="title" class="form-control bg-graylight border-0 font-weight-bold" id="searching" placeholder="请输入要搜索的关键词" autocomplete="off">
       </form>
     </ul>
     <ul class="navbar-nav ml-auto align-items-center">
@@ -34,3 +32,14 @@
     </ul>
   </div>
 </nav>
+
+<script>
+  $(document).ready(function () {
+    $("#search-input").keydown(function (event) {
+      if(event.keyCode == 13) {
+        let searchContent = $("#search-input").val();
+        location.href = "/index?title=" + searchContent;
+      }
+    });
+  });
+</script>

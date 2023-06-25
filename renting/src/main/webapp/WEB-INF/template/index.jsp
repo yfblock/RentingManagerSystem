@@ -25,13 +25,13 @@
             <div class="row" style="justify-content: center;">
                 <ul class="navbar-nav" style="display: flex; flex-direction: row;flex-wrap: wrap;width: 120px;justify-content: space-between;">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #000;">全部</a>
+                        <a class="nav-link" href="/" style="color:${type==0?'#000;':'#888'}">全部</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #888;">可租</a>
+                        <a class="nav-link" href="/?type=1" style="color:${type==1?'#000;':'#888'}">可租</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="color: #888;">已租</a>
+                        <a class="nav-link" href="/?type=2" style="color:${type==2?'#000;':'#888'}">已租</a>
                     </li>
                 </ul>
             </div>

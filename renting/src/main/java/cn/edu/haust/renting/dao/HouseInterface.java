@@ -20,4 +20,13 @@ public interface HouseInterface {
 
     @Find("select * from house where id = {0}")
     public House getHouseById(Integer id) throws SQLException;
+
+    @Select("select * from house where title like '%{0}%'")
+    public List<House> findHouseByName(String title) throws SQLException;
+
+    @Select("select * from house where ordered={0}")
+    public List<House> findHouseByOrder(Integer ordered) throws SQLException;
+
+    @Update("update house set ordered=1 where id = {0}")
+    public Integer toOrderById(Integer id) throws SQLException;
 }

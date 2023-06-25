@@ -34,7 +34,7 @@
 					</div>
 
 					<div style="margin-top: 1em;">
-						<button class="btn btn-success">点击租赁</button>
+						<button class="btn btn-success" onclick="toOrder()">点击租赁</button>
 					</div>
     			</div>
     			</article>
@@ -48,6 +48,18 @@
 
     <script src="assets/js/app.js"></script>
     <script src="assets/js/theme.js"></script>
+	<script>
+		function toOrder() {
+			$.post("#", {
+				id: ${house.id}
+			}, function(res) {
+				alert(res['msg']);
+				if(res['status']) {
+
+				}
+			})
+		}
+	</script>
 </body>
     
 </html>
